@@ -9,13 +9,16 @@
 #ifndef M_LN2
 #define M_LN2  0.693147180559945309417232121458176568
 #endif
-/* The results from rerror.c show that we must use a taylor series
+/* Program 4: A program which approximates e^x somewhat efficiently.
+ * By Andrew Oakes
+ *
+ * The results from rerror.c show that we must use a taylor series
  * of degree 7 in order to obtain an approximation with an error less than 
- * machine epsilon.
+ * machine epsilon (which for some reason prooves not to be the case according to test.pl???).
 */
-double fracExp(float x){
-    float coeffs[7] = {1, 1.0/2.0, 1.0/6.0, 1.0/24.0, 1.0/120.0, 1.0/720.0, 1.0/5040.0};
-    // horner's algorithm for the seventh degree taylor series for e^x.
+float fracExp(float x){
+    float coeffs[7] = {1, .5, 0.166666666666666666666666666667, 0.0416666666666666666666666666667, 0.00833333333333333333333333333333, 0.00138888888888888888888888888889,0.000198412698412698412698412698413 };
+    // what horner's algorithm produces for the seventh degree taylor series for e^x.....
     return fmaf(x,fmaf(x,fmaf(x,fmaf(x,fmaf(x,fmaf(x,fmaf(x,coeffs[6],coeffs[5]),coeffs[4]),coeffs[3]),coeffs[2]),coeffs[1]),coeffs[0]),1);
 }
 float myexp(float x) {
